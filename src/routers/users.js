@@ -41,7 +41,7 @@ router.delete('/users/:id', async(req, res) => {
 
 router.patch('/users/:id', async(req, res) => {
     const updates = Object.keys(req.body);
-    const allowedUpdates =['genre'];
+    const allowedUpdates =['name, emails'];
     const isValidOperation = updates.every(update => allowedUpdates.includes(update));
     try {
         const user = await User.findByIdAndUpdate(req.params.id, req.body);
