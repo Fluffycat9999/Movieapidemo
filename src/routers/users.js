@@ -6,23 +6,25 @@ router.post('/users', async (req, res) => {
     try{
         const user = new User(req.body);
         await user.save();
-        res.send(user);
+        const token = await user.generateToken(); //user is lowercase so that token is generated only for that user
+        res.send({user, token});
     } catch(error){
         res.status(500).send(error);
     }
 });
 
-router.post('users/login', async (req, res) => {
+router.post("/users/login", async (req, res) => {
     try {
-        const user = await User.findByCredentials(
-            req.body.email,
-            req.body.password
-        );
-        res.send(user);
+      const user = await User.findByCredentials(
+        req.body.email,
+        req.body.password
+      );
+      res.send(user);
     } catch (error) {
-        res.status(400).send(error);
+      console.log(error);
+      res.status(400).send(error);
     }
-});
+  });
 
 router.get('/users', async(req, res) => {
     try{
@@ -32,6 +34,10 @@ router.get('/users', async(req, res) => {
         res.status(500).send(error);
     }
 });
+
+router.get('/users/me', auth, async(req, res) =>{
+    res.send(req.user);
+})
 
 router.get('/users/:id', async(req, res) => {
     try{

@@ -23,3 +23,15 @@ const testFunction = async () => {
 };
 
 testFunction(); */
+
+/* const jwt = require('jsonwebtoken');
+
+const testFunction = async() => {
+    const token = jwt.sign({_id:"5e1f40d608d9122ecc14ece5"}, "siths1234",{
+        expiresIn: '7 days'
+    });
+    console.log(token);
+    const data = jwt.verify(token, "siths1234");
+    console.log(data);
+}
+testFunction(); */
