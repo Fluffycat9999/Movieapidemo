@@ -45,6 +45,17 @@ const userSchema = new mongoose.Schema({
     }
   ]
 });
+
+userSchema.methods.toJSON = function () {
+  const user = this;
+  const userObject = user.toObject();
+  delete userObject.tokens;
+  delete userObject.password;
+
+  return userObject;
+}
+
+
 userSchema.methods.generateToken = async function() {
   const user = this;
   const token = jwt.sign({_id: user._id.toString()}, "siths1234");
@@ -72,5 +83,8 @@ userSchema.statics.findByCredentials = async (email, password) => {
   }
   return user;
 };
+
+
+
 const User = mongoose.model("User", userSchema);
 module.exports = User;
