@@ -75,7 +75,7 @@ router.post('/users/logout', auth, async(req, res) =>{
     //console.log(token.token);
     try {
         req.user.tokens = req.user.tokens.filter(token => {
-            console.log(token.token);
+            //console.log(token.token);
             return token.token !== req.token;
             //we ONLY return the tokens that do not match the bearer token
         });
