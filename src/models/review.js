@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Review = mongoose.model('Review', {
+const reviewSchema = new mongoose.Schema(/* 'Review',  */{
   movie:{
       type: String,
       required: true
@@ -19,6 +19,11 @@ const Review = mongoose.model('Review', {
     required: true,
     ref:'User'
   }
-});
+},
+{
+  timestamps: true
+}
+);
 
+  const Review = mongoose.model("Review", reviewSchema);
   module.exports = Review;
